@@ -48,7 +48,7 @@ header {
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 10;
+    z-index: 1;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
 }
 
@@ -107,104 +107,3 @@ h1 {
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.25);
 }
 
-
-/* Responsive styles for tablets and below */
-@media (max-width: 900px) {
-  #intro {
-    flex-direction: column;
-    gap: 32px;
-    padding: 0 10px;
-    max-width: 95vw;
-  }
-  #intro .content {
-    transform: none;
-    text-align: center;
-  }
-  #intro-image img {
-    width: 70vw;
-    max-width: 350px;
-  }
-  /* removed duplicate #pendulum-box and #pendulums rules, overlay version is below */
-}
-
-/* Responsive styles for mobile devices */
-@media (max-width: 600px) {
-  h1 {
-    font-size: 2.2rem;
-  }
-  #intro {
-    gap: 18px;
-    padding: 180px 4vw 0 4vw;
-  }
-  #intro-image img {
-    width: 90vw;
-    max-width: 98vw;
-  }
-  /* removed duplicate #pendulums rules, overlay version is below */
-  header {
-    font-size: 1.2rem;
-    height: 56px;
-  }
-}
-
-#main-container {
-  position: relative;
-}
-
-#pendulum-box {
-  position: absolute;
-  top: 80px; /* Place below header */
-  left: 0;
-  width: 100%;
-  height: 160px; /* Increased height for pendulums */
-  z-index: 5;
-  pointer-events: none; /* Allows clicks to pass through if desired */
-}
-
-#pendulums {
-  width: 100%;
-  height: 100%;
-  display: block;
-  z-index: 2;
-}
-
-/* Add top padding to intro so it's not hidden under the canvas */
-#intro {
-  padding-top: 250px;
-}
-
-/* Responsive styles for tablets and below */
-@media (max-width: 900px) {
-  #intro {
-    flex-direction: column;
-    gap: 32px;
-    padding: 110px 10px 0 10px;
-    max-width: 95vw;
-  }
-  #pendulum-box {
-    top: 56px;
-    height: 120px;
-  }
-  #intro {
-    padding-top: 170px;
-  }
-}
-
-/* Responsive styles for mobile devices */
-@media (max-width: 600px) {
-  #intro {
-    gap: 18px;
-    padding: 90px 4vw 0 4vw;
-  }
-  #pendulum-box {
-    top: 48px;
-    height: 80px;
-  }
-  #intro {
-    padding-top: 110px;
-  }
-  #pendulums {
-    min-height: 80px;
-    max-height: 20vh;
-  }
-}
