@@ -238,25 +238,38 @@ function alignPendulums() {
   const group1Width = (group1Length - 1) * spacing;
   const group2Width = (group2Length - 1) * spacing;
 
-  const totalWidth = group1Width + group2Width + groupGap;
-  const startX = canvasWidth / 2;
-
   const originY = canvasHeight * 0.15;
 
-  for (let i = 0; i < group1Length; i++) {
-    const p = pendulums[i];
-    p.origin.x = startX + i * spacing;
-    p.origin.y = originY;
-    p.trace = [];
-  }
+  if (group2Length === 0) {
+    // Mobile: center group1 alone
+    const startX = canvasWidth / 2 - group1Width / 2;
+    for (let i = 0; i < group1Length; i++) {
+      const p = pendulums[i];
+      p.origin.x = startX + i * spacing;
+      p.origin.y = originY;
+      p.trace = [];
+    }
+  } else {
+    // Desktop: center both groups with gap
+    const totalWidth = group1Width + group2Width + groupGap;
+    const startX = canvasWidth / 2 - totalWidth / 2;
 
-  for (let i = 0; i < group2Length; i++) {
-    const p = pendulums[group1Length + i];
-    p.origin.x = startX + group1Width + groupGap + i * spacing;
-    p.origin.y = originY;
-    p.trace = [];
+    for (let i = 0; i < group1Length; i++) {
+      const p = pendulums[i];
+      p.origin.x = startX + i * spacing;
+      p.origin.y = originY;
+      p.trace = [];
+    }
+
+    for (let i = 0; i < group2Length; i++) {
+      const p = pendulums[group1Length + i];
+      p.origin.x = startX + group1Width + groupGap + i * spacing;
+      p.origin.y = originY;
+      p.trace = [];
+    }
   }
 }
+
 
 function resize() {
   const dpr = window.devicePixelRatio || 1;
