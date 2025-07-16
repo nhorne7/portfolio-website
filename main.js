@@ -1,23 +1,5 @@
-
 const canvas = document.getElementById("pendulums");
 const ctx = canvas.getContext("2d");
-
-// Dynamically resize canvas to fit its container
-function resizePendulumCanvas() {
-  // Get the parent container's size
-  const box = canvas.parentElement;
-  // Use the computed style to get the actual rendered size
-  const width = box.clientWidth;
-  const height = box.clientHeight;
-  // Set canvas size to match container (for crispness on all screens)
-  const dpr = window.devicePixelRatio || 1;
-  canvas.width = width * dpr;
-  canvas.height = height * dpr;
-  canvas.style.width = width + "px";
-  canvas.style.height = height + "px";
-  ctx.setTransform(1, 0, 0, 1, 0, 0);
-  ctx.scale(dpr, dpr);
-}
 
 const g = 9.81;
 const metersToPixels = 200;
@@ -268,7 +250,6 @@ for (const cfg of group1Configs.concat(group2Configs)) {
 
 
 function alignPendulums() {
-  // Use the actual canvas size (in CSS pixels)
   const canvasWidth = canvas.clientWidth;
   const canvasHeight = canvas.clientHeight;
 
@@ -279,17 +260,9 @@ function alignPendulums() {
   const group2Width = (group2Length - 1) * spacing;
 
   const totalWidth = group1Width + group2Width + groupGap;
-  const startX = canvasWidth / 2 - totalWidth / 2;
+  const startX = canvasWidth / 2;
 
-  // Get header height dynamically (fallback to 80px if not found)
-  let headerHeight = 80;
-  const header = document.querySelector('header');
-  if (header) {
-    headerHeight = header.offsetHeight;
-  }
-
-  // Place origin just below header, with a small offset for aesthetics
-  const originY = headerHeight + 12;
+  const originY = canvasHeight * 0.2; // 20% from top
 
   // Position group1
   for (let i = 0; i < group1Length; i++) {
@@ -310,10 +283,22 @@ function alignPendulums() {
 
 
 function resize() {
-  resizePendulumCanvas();
+  const dpr = window.devicePixelRatio || 1;
+
+  const logicalWidth = window.innerWidth;
+  const logicalHeight = 255; // 85% of viewport
+
+  canvas.width = logicalWidth * dpr;
+  canvas.height = logicalHeight * dpr;
+
+  canvas.style.width = logicalWidth + "px";
+  canvas.style.height = logicalHeight + "px";
+
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  ctx.scale(dpr, dpr);
+
   alignPendulums();
 }
-
 
 window.addEventListener("resize", resize);
 resize();
