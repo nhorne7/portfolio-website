@@ -1,0 +1,109 @@
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(-75px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(75px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(3px);
+  }
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: #E4E4DE;
+    font-family: Helvetica, sans-serif;
+
+}
+
+header {
+    height: 80px;
+    background: #C4C5BA;
+    color: "#1B1B1B";
+    font-size: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Helvetica, sans-serif;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+h1 {   
+    color: rgba(0,0,0);
+    font-size: 50px;
+}
+
+#pendulums {
+  display: block;
+  width: 100%;
+  max-height: 85vh;
+  z-index: 0;
+}
+
+#intro {
+  display: flex;
+  align-items: center;      /* Vertically align image and text */
+  justify-content: center;  /* Optional: center them in the page */
+  gap: 60px;                /* Space between text and image */
+  max-width: 1000px;
+  margin: 0px auto 60px;  /* Space from top (after canvas) */
+  padding: 0 20px;
+}
+
+#intro .content {
+    transform: translateX(-150px);
+}
+
+
+#intro .content h1 {
+    opacity: 0;
+    transform: translateX(-50px);
+    animation: fadeInRight 2.2s ease-in-out forwards;
+}
+
+#intro .content p {
+  opacity: 0;
+  transform: translateX(-50px);
+  animation: fadeInLeft 2.2s ease-in-out forwards;
+}
+
+#intro .content h1 {
+  animation-delay: 0.5s;
+}
+
+#intro .content p {
+  animation-delay: 2.5s;
+}
+
+
+#intro-image img {
+  width: 400px;            /* Adjust to fit your design */
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.25);
+}
+
