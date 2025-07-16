@@ -232,8 +232,8 @@ function alignPendulums() {
   const canvasWidth = canvas.clientWidth;
   const canvasHeight = canvas.clientHeight;
 
-  const group1Length = group1.length;
-  const group2Length = group2.length;
+  const group1Length = group1.length; // length of "noah"
+  const group2Length = group2.length; // length of "horne" or 0 on mobile
 
   const group1Width = (group1Length - 1) * spacing;
   const group2Width = (group2Length - 1) * spacing;
@@ -241,7 +241,7 @@ function alignPendulums() {
   const originY = canvasHeight * 0.15;
 
   if (group2Length === 0) {
-    // Mobile: center group1 alone
+    // MOBILE: Center "noah" perfectly
     const startX = canvasWidth / 2 - group1Width / 2;
     for (let i = 0; i < group1Length; i++) {
       const p = pendulums[i];
@@ -250,7 +250,7 @@ function alignPendulums() {
       p.trace = [];
     }
   } else {
-    // Desktop: center both groups with gap
+    // DESKTOP: Center both groups including gap
     const totalWidth = group1Width + group2Width + groupGap;
     const startX = canvasWidth / 2 - totalWidth / 2;
 
@@ -269,6 +269,7 @@ function alignPendulums() {
     }
   }
 }
+
 
 
 function resize() {
