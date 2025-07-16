@@ -71,12 +71,11 @@ h1 {
 
 #intro {
   display: flex;
-  align-items: center;      /* Vertically align image and text */
-  justify-content: center;  /* Optional: center them in the page */
-  gap: 60px;                /* Space between text and image */
-  max-width: 1000px;
-  margin: 0px auto 60px;  /* Space from top (after canvas) */
-  padding: 0 20px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  padding: 40px;
 }
 
 #intro .content {
@@ -120,8 +119,8 @@ h1 {
   #intro {
     flex-direction: column;
     text-align: center;
-    gap: 30px; /* smaller vertical gap for stacking */
-    padding-top: 20px; /* spacing after canvas */
+    gap: 30px;
+    padding-top: 20px;
   }
 
   #intro .content {
@@ -130,27 +129,15 @@ h1 {
 
   #intro .content h1,
   #intro .content p {
-    transform: none;
+    transform: none !important;
+    animation: none !important;
     text-align: center;
+    opacity: 1;  /* make sure it's visible */
   }
 
   #intro-image img {
-    width: 80%; /* responsive image */
+    width: 80%;
     max-width: 300px;
   }
-
-  #pendulums {
-    height: 25vh; /* make canvas shorter on mobile */
-  }
-
-  #pendulum-box {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-top: 80px; /* ensure it clears the fixed header */
-  }
-
-  header {
-    font-size: 24px;
-  }
 }
+
