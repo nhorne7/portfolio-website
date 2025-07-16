@@ -228,6 +228,8 @@ for (const cfg of group1Configs.concat(group2Configs)) {
   pendulums.push(dp);
 }
 
+
+/* CENTERING LOGIC */
 function alignPendulums() {
   const canvasWidth = canvas.clientWidth;
   const canvasHeight = canvas.clientHeight;
@@ -349,6 +351,59 @@ canvas.addEventListener("mouseleave", () => {
     p.isHovered = false;
   }
 });
+
+
+/* MOBILE PENDULUM INTERACTIVITY */
+canvas.addEventListener("touchstart", (e) => {
+  e.preventDefault();  // Prevent scrolling while touching canvas
+  const rect = canvas.getBoundingClientRect();
+  const touch = e.touches[0];
+  const touchX = touch.clientX - rect.left;
+  const touchY = touch.clientY - rect.top;
+
+  for (const p of pendulums) {
+    const bob2 = p.getBob2();
+    const dx = touchX - bob2.x;
+    const dy = touchY - bob2.y;
+    const dist = Math.sqrt(dx * dx + dy * dy);
+    if (dist < dragRadius) {
+      draggingPendulum = p;
+      p.isDragging = true;
+      p.trace = [];
+      p.dragTo(touchX, touchY);
+      break;
+    }
+  }
+}, { passive: false });
+
+canvas.addEventListener("touchmove", (e) => {
+  e.preventDefault();
+  if (!draggingPendulum) return;
+
+  const rect = canvas.getBoundingClientRect();
+  const touch = e.touches[0];
+  const touchX = touch.clientX - rect.left;
+  const touchY = touch.clientY - rect.top;
+
+  draggingPendulum.dragTo(touchX, touchY);
+}, { passive: false });
+
+canvas.addEventListener("touchend", (e) => {
+  e.preventDefault();
+  if (draggingPendulum) {
+    draggingPendulum.isDragging = false;
+    draggingPendulum = null;
+  }
+}, { passive: false });
+
+canvas.addEventListener("touchcancel", (e) => {
+  e.preventDefault();
+  if (draggingPendulum) {
+    draggingPendulum.isDragging = false;
+    draggingPendulum = null;
+  }
+}, { passive: false });
+
 
 let startTimeMs = performance.now();
 
