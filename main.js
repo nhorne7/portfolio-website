@@ -281,7 +281,15 @@ function alignPendulums() {
   const totalWidth = group1Width + group2Width + groupGap;
   const startX = canvasWidth / 2 - totalWidth / 2;
 
-  const originY = canvasHeight * 0.5; // Center vertically in canvas
+  // Get header height dynamically (fallback to 80px if not found)
+  let headerHeight = 80;
+  const header = document.querySelector('header');
+  if (header) {
+    headerHeight = header.offsetHeight;
+  }
+
+  // Place origin just below header, with a small offset for aesthetics
+  const originY = headerHeight + 12;
 
   // Position group1
   for (let i = 0; i < group1Length; i++) {
