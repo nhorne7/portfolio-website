@@ -112,3 +112,45 @@ h1 {
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.25);
 }
 
+
+
+/* MOBILE SUPPORT */
+
+@media (max-width: 768px) {
+  #intro {
+    flex-direction: column;
+    text-align: center;
+    gap: 30px; /* smaller vertical gap for stacking */
+    padding-top: 20px; /* spacing after canvas */
+  }
+
+  #intro .content {
+    transform: none;
+  }
+
+  #intro .content h1,
+  #intro .content p {
+    transform: none;
+    text-align: center;
+  }
+
+  #intro-image img {
+    width: 80%; /* responsive image */
+    max-width: 300px;
+  }
+
+  #pendulums {
+    height: 25vh; /* make canvas shorter on mobile */
+  }
+
+  #pendulum-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 80px; /* ensure it clears the fixed header */
+  }
+
+  header {
+    font-size: 24px;
+  }
+}
