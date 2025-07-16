@@ -48,7 +48,7 @@ header {
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 1;
+    z-index: 10;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
 }
 
@@ -156,8 +156,8 @@ h1 {
   top: 0;
   left: 0;
   width: 100%;
-  height: 240px;
-  z-index: 2;
+  height: 100px;
+  z-index: 5;
   pointer-events: none; /* Allows clicks to pass through if desired */
 }
 
@@ -170,7 +170,7 @@ h1 {
 
 /* Add top padding to intro so it's not hidden under the canvas */
 #intro {
-  padding-top: 260px;
+  padding-top: 110px;
 }
 
 /* Responsive styles for tablets and below */
@@ -178,11 +178,11 @@ h1 {
   #intro {
     flex-direction: column;
     gap: 32px;
-    padding: 260px 10px 0 10px;
+    padding: 110px 10px 0 10px;
     max-width: 95vw;
   }
   #pendulum-box {
-    height: 180px;
+    height: 80px;
   }
 }
 
@@ -190,13 +190,13 @@ h1 {
 @media (max-width: 600px) {
   #intro {
     gap: 18px;
-    padding: 180px 4vw 0 4vw;
+    padding: 90px 4vw 0 4vw;
   }
   #pendulum-box {
-    height: 120px;
+    height: 60px;
   }
   #pendulums {
-    min-height: 100px;
-    max-height: 30vh;
+    min-height: 60px;
+    max-height: 20vh;
   }
 }
