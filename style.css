@@ -153,10 +153,10 @@ h1 {
 
 #pendulum-box {
   position: absolute;
-  top: 0;
+  top: 80px; /* Place below header */
   left: 0;
   width: 100%;
-  height: 100px;
+  height: 160px; /* Increased height for pendulums */
   z-index: 5;
   pointer-events: none; /* Allows clicks to pass through if desired */
 }
@@ -170,7 +170,7 @@ h1 {
 
 /* Add top padding to intro so it's not hidden under the canvas */
 #intro {
-  padding-top: 110px;
+  padding-top: 250px;
 }
 
 /* Responsive styles for tablets and below */
@@ -182,7 +182,11 @@ h1 {
     max-width: 95vw;
   }
   #pendulum-box {
-    height: 80px;
+    top: 56px;
+    height: 120px;
+  }
+  #intro {
+    padding-top: 170px;
   }
 }
 
@@ -193,10 +197,14 @@ h1 {
     padding: 90px 4vw 0 4vw;
   }
   #pendulum-box {
-    height: 60px;
+    top: 48px;
+    height: 80px;
+  }
+  #intro {
+    padding-top: 110px;
   }
   #pendulums {
-    min-height: 60px;
+    min-height: 80px;
     max-height: 20vh;
   }
 }
