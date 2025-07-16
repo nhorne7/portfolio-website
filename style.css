@@ -60,9 +60,14 @@ h1 {
 #pendulums {
   display: block;
   width: 100%;
-  max-height: 85vh;
+  height: 40vh;
   z-index: 0;
 }
+
+#pendulum-box {
+  margin-bottom: 20px;
+}
+
 
 #intro {
   display: flex;

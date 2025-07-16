@@ -262,7 +262,7 @@ function alignPendulums() {
   const totalWidth = group1Width + group2Width + groupGap;
   const startX = canvasWidth / 2;
 
-  const originY = canvasHeight * 0.2; // 20% from top
+  const originY = canvasHeight * 0.15; // 20% from top
 
   // Position group1
   for (let i = 0; i < group1Length; i++) {
