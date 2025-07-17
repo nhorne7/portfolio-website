@@ -14,38 +14,38 @@
   gap: 40px;
   max-width: 1000px;
   margin: 0px auto 60px;
+/* About Me section matches intro section structure */
+.about-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  max-width: 1000px;
+  margin: 0px auto 60px;
   padding: 40px;
 }
 
-.about-image img {
-  width: 200px;
+#about-image img {
+  width: 400px;
   height: auto;
-  border-radius: 16px;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.13);
-  background: #e4e4de;
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.25);
 }
 
-.about-text {
+.about-content {
   flex: 1;
 }
-
-.about-text h2 {
+.about-content h2 {
   font-size: 2.2rem;
   margin-bottom: 18px;
   color: #1B1B1B;
 }
-
-.about-text p {
+.about-content p {
   font-size: 1.15rem;
   color: #222;
   line-height: 1.7;
 }
-
-@media (max-width: 700px) {
-  .about-container {
-    flex-direction: column;
-    gap: 30px;
-    text-align: center;
     padding: 20px;
   }
   .about-image img {
@@ -54,13 +54,13 @@
   }
   .about-text {
     text-align: center;
+  #about-image img {
+    width: 80vw;
+    max-width: 300px;
   }
-}
-
-
-@keyframes fadeInRight {
-  from {
-    opacity: 0;
+  .about-content {
+    text-align: center;
+  }
     transform: translateX(-75px);
   }
   to {
