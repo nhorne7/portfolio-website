@@ -14,15 +14,6 @@
   gap: 40px;
   max-width: 1000px;
   margin: 0px auto 60px;
-/* About Me section matches intro section structure */
-.about-container {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  gap: 40px;
-  max-width: 1000px;
-  margin: 0px auto 60px;
   padding: 40px;
 }
 
@@ -46,26 +37,20 @@
   color: #222;
   line-height: 1.7;
 }
+
+@media (max-width: 700px) {
+  .about-container {
+    flex-direction: column;
+    gap: 30px;
+    text-align: center;
     padding: 20px;
   }
-  .about-image img {
-    width: 120px;
-    height: 120px;
-  }
-  .about-text {
-    text-align: center;
   #about-image img {
     width: 80vw;
     max-width: 300px;
   }
   .about-content {
     text-align: center;
-  }
-    transform: translateX(-75px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0px);
   }
 }
 
