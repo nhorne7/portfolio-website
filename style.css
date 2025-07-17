@@ -125,6 +125,7 @@ h1 {
   justify-content: center;
   gap: 40px;
   padding: 40px;
+    background: #E4E4DE;
 }
 
 #intro .content {
@@ -186,6 +187,6 @@ h1 {
 
   #intro-image img {
     width: 80%;
-    max-width: 300px;
+    background: #E4E4DE;
   }
 }
