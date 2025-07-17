@@ -117,6 +117,10 @@ h1 {
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.25);
 }
 
+
+
+
+
 #about {
   display: flex;
   flex-direction: row;
@@ -126,6 +130,39 @@ h1 {
   padding: 20px 40px 0 40px;
 }
 
+
+#intro .content {
+    transform: translateX(-150px);
+}
+
+
+#about .content h1 {
+    opacity: 0;
+    transform: translateX(-50px);
+    animation: fadeInRight 2.2s ease-in-out forwards;
+}
+
+#about .content p {
+  opacity: 0;
+  transform: translateX(-50px);
+  animation: fadeInLeft 2.2s ease-in-out forwards;
+}
+
+#about .content h1 {
+  animation-delay: 0.5s;
+}
+
+#about .content p {
+  animation-delay: 2.5s;
+}
+
+
+#about-image img {
+  width: 400px;            /* Adjust to fit your design */
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.25);
+}
 /* MOBILE SUPPORT */
 
 @media (max-width: 768px) {
