@@ -117,10 +117,6 @@ h1 {
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.25);
 }
 
-
-
-
-
 #about {
   display: flex;
   flex-direction: row;
@@ -131,10 +127,9 @@ h1 {
 }
 
 
-#intro .content {
+#about .content {
     transform: translateX(-150px);
 }
-
 
 #about .content h1 {
     opacity: 0;
