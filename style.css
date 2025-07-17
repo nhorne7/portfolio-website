@@ -134,13 +134,13 @@ h1 {
 #about .content h1 {
     opacity: 0;
     transform: translateX(-50px);
-    animation: fadeInRight 2.2s ease-in-out forwards;
+    animation: fadeInLeft 2.2s ease-in-out forwards;
 }
 
 #about .content p {
   opacity: 0;
   transform: translateX(-50px);
-  animation: fadeInLeft 2.2s ease-in-out forwards;
+  animation: fadeInRight 2.2s ease-in-out forwards;
 }
 
 #about .content h1 {
