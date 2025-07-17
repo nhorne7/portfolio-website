@@ -71,7 +71,7 @@ h1 {
 }
 
 #pendulum-box {
-  margin-bottom: 20px;
+  margin-bottom: 0;
 }
 
 
@@ -81,7 +81,7 @@ h1 {
   align-items: center;
   justify-content: center;
   gap: 0px;
-  padding: 40px;
+  padding: 20px 40px 0 40px;
 }
 
 #intro .content {
