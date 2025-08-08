@@ -1,4 +1,6 @@
-
+html {
+  scroll-behavior: smooth;
+}
 
 @keyframes fadeInRight {
   from {
@@ -117,47 +119,6 @@ h1 {
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.25);
 }
 
-#about {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  gap: 0px;
-  padding: 20px 40px 0 40px;
-}
-
-
-#about .content {
-    transform: translateX(-150px);
-}
-
-#about .content h1 {
-    opacity: 0;
-    transform: translateX(-50px);
-    animation: fadeInLeft 2.2s ease-in-out forwards;
-}
-
-#about .content p {
-  opacity: 0;
-  transform: translateX(-50px);
-  animation: fadeInRight 2.2s ease-in-out forwards;
-}
-
-#about .content h1 {
-  animation-delay: 0.5s;
-}
-
-#about .content p {
-  animation-delay: 2.5s;
-}
-
-
-#about-image img {
-  width: 400px;            /* Adjust to fit your design */
-  height: auto;
-  border-radius: 12px;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.25);
-}
 /* MOBILE SUPPORT */
 
 @media (max-width: 768px) {
@@ -184,4 +145,84 @@ h1 {
     width: 80%;
     max-width: 300px;
   }
+}
+
+#about {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px 0;
+  width: 100%;
+  overflow: visible;
+}
+
+#aboutSpringCanvas {
+  display: block;
+  width: 100vw;   /* wider than the viewport */
+  max-width: none;
+  height: 120px;
+  touch-action: none;
+  margin-left: 0vw; /* centers it visually if needed */
+  margin-bottom: 0;
+}
+
+
+/* Enable hover only on visible painted parts of paths */
+#about svg path {
+  pointer-events: visiblePainted;
+}
+
+/* Base state of SVG */
+#about svg {
+  margin: 0 20px;
+  width: 300px;
+  height: auto;
+  filter: drop-shadow(0px 0px 0px #858585);
+  transition: filter 300ms ease-in-out, transform 300ms ease-in-out;
+}
+
+/* On hover of any path, style the SVG */
+#about svg:hover {
+  filter: drop-shadow(5px 5px 5px #858585);
+  transform: translateY(-5px);
+}
+
+
+#about p{
+  line-height: 1.5;
+  margin-top: 0;
+  margin-bottom: 1.5em;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+
+#workSpringCanvas {
+  display: block;
+  width: 100vw;   /* wider than the viewport */
+  max-width: none;
+  height: 120px;
+  touch-action: none;
+  margin-left: 0vw; /* centers it visually if needed */
+  margin-bottom: 0;
+}
+
+#MyWork h1 {
+  font-size: 30px;
+  color: #000;
+  text-align: center;
+}
+
+#MyWork iframe {
+   width: 75%;
+  height: 400px;
+  margin-left: 12.5%;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+#MyWork h3 {
+  font-size: 20px;
+  color: #000;
+  text-align: center;
 }

@@ -426,3 +426,294 @@ function loop() {
 }
 
 requestAnimationFrame(() => loop());
+
+// --- ABOUT ME SPRING SETUP ---
+
+const aboutCanvas = document.getElementById("aboutSpringCanvas");
+const aboutCtx = aboutCanvas.getContext("2d");
+
+function resizeAboutCanvas() {
+  const dpr = window.devicePixelRatio || 1;
+  aboutCanvas.width = aboutCanvas.clientWidth * dpr;
+  aboutCanvas.height = aboutCanvas.clientHeight * dpr;
+  aboutCtx.setTransform(1, 0, 0, 1, 0, 0);
+  aboutCtx.scale(dpr, dpr);
+}
+window.addEventListener("resize", resizeAboutCanvas);
+resizeAboutCanvas();
+
+let massX = aboutCanvas.clientWidth / 2;
+let massY = aboutCanvas.clientHeight / 2;
+let massVX = 0;
+const mass = 1.0;
+const k = 0.0025;
+const damping = 0.015;
+let dragging = false;
+let dragOffsetX = 0;
+
+function getAnchors() {
+  const leftAnchor = -60;
+  const rightAnchor = aboutCanvas.clientWidth + 60;
+  return { leftAnchor, rightAnchor };
+}
+
+function drawZigZagSpring(x1, y1, x2, y2, coils = 20, amplitude = 8) {
+  const dx = x2 - x1;
+  const coilSpacing = dx / (coils * 2);
+
+  aboutCtx.beginPath();
+  aboutCtx.moveTo(x1, y1);
+  for (let i = 0; i < coils * 2; i++) {
+    const x = x1 + coilSpacing * (i + 1);
+    const y = y1 + (i % 2 === 0 ? -amplitude : amplitude);
+    aboutCtx.lineTo(x, y);
+  }
+  aboutCtx.lineTo(x2, y2);
+  aboutCtx.stroke();
+}
+
+function updateSpring() {
+  if (!dragging) {
+    const { leftAnchor, rightAnchor } = getAnchors();
+    const restX = (leftAnchor + rightAnchor) / 2;
+
+    const displacement = massX - restX;
+    const force = -k * displacement * 2;
+    const ax = force / mass;
+
+    massVX += ax;
+    massVX *= (1 - damping);
+    massX += massVX;
+  }
+}
+
+function drawSpringSystem() {
+  aboutCtx.clearRect(0, 0, aboutCanvas.clientWidth, aboutCanvas.clientHeight);
+
+  const { leftAnchor, rightAnchor } = getAnchors();
+
+  aboutCtx.strokeStyle = "#C4C5BA";
+  aboutCtx.lineWidth = 3;
+
+  drawZigZagSpring(leftAnchor, massY, massX - 110, massY);
+  drawZigZagSpring(rightAnchor, massY, massX + 110, massY);
+
+  aboutCtx.fillStyle = "rgb(58, 105, 66)";
+  aboutCtx.font = "bold 60px Helvetica";
+  aboutCtx.textAlign = "center";
+  aboutCtx.textBaseline = "middle";
+  aboutCtx.fillText("\u21CB", massX, massY - 40);
+
+  aboutCtx.fillStyle = "#1B1B1B";
+  aboutCtx.font = "bold 50px Helvetica";
+  aboutCtx.fillText("About Me", massX, massY);
+}
+
+// Event handling for About Me spring
+
+function getEventX(e) {
+  if (e.touches) {
+    return e.touches[0].clientX - aboutCanvas.getBoundingClientRect().left;
+  }
+  return e.clientX - aboutCanvas.getBoundingClientRect().left;
+}
+
+aboutCanvas.addEventListener("mousedown", (e) => {
+  const x = getEventX(e);
+  const y = e.clientY - aboutCanvas.getBoundingClientRect().top;
+  if (Math.abs(x - massX) < 100 && Math.abs(y - massY) < 40) {
+    dragging = true;
+    dragOffsetX = x - massX;
+  }
+});
+
+aboutCanvas.addEventListener("mousemove", (e) => {
+  if (dragging) {
+    massX = getEventX(e) - dragOffsetX;
+    massVX = 0;
+  }
+});
+
+aboutCanvas.addEventListener("mouseup", () => {
+  dragging = false;
+});
+
+aboutCanvas.addEventListener("mouseleave", () => {
+  dragging = false;
+});
+
+aboutCanvas.addEventListener("touchstart", (e) => {
+  const x = getEventX(e);
+  const y = e.touches[0].clientY - aboutCanvas.getBoundingClientRect().top;
+  if (Math.abs(x - massX) < 100 && Math.abs(y - massY) < 40) {
+    dragging = true;
+    dragOffsetX = x - massX;
+  }
+}, { passive: false });
+
+aboutCanvas.addEventListener("touchmove", (e) => {
+  if (dragging) {
+    massX = getEventX(e) - dragOffsetX;
+    massVX = 0;
+  }
+}, { passive: false });
+
+aboutCanvas.addEventListener("touchend", () => {
+  dragging = false;
+}, { passive: false });
+
+aboutCanvas.addEventListener("touchcancel", () => {
+  dragging = false;
+}, { passive: false });
+
+// --- WORK SPRING SETUP ---
+
+const workCanvas = document.getElementById("workSpringCanvas");
+const workCtx = workCanvas.getContext("2d");
+
+function resizeWorkCanvas() {
+  const dpr = window.devicePixelRatio || 1;
+  workCanvas.width = workCanvas.clientWidth * dpr;
+  workCanvas.height = workCanvas.clientHeight * dpr;
+  workCtx.setTransform(1, 0, 0, 1, 0, 0);
+  workCtx.scale(dpr, dpr);
+}
+window.addEventListener("resize", resizeWorkCanvas);
+resizeWorkCanvas();
+
+let workMassX = workCanvas.clientWidth / 2;
+let workMassY = workCanvas.clientHeight / 2;
+let workMassVX = 0;
+const workMass = 1.0;
+const workK = 0.0025;
+const workDamping = 0.015;
+let workDragging = false;
+let workDragOffsetX = 0;
+
+function getWorkAnchors() {
+  const leftAnchor = -60;
+  const rightAnchor = workCanvas.clientWidth + 60;
+  return { leftAnchor, rightAnchor };
+}
+
+function drawWorkZigZagSpring(x1, y1, x2, y2, coils = 20, amplitude = 8) {
+  const dx = x2 - x1;
+  const coilSpacing = dx / (coils * 2);
+
+  workCtx.beginPath();
+  workCtx.moveTo(x1, y1);
+  for (let i = 0; i < coils * 2; i++) {
+    const x = x1 + coilSpacing * (i + 1);
+    const y = y1 + (i % 2 === 0 ? -amplitude : amplitude);
+    workCtx.lineTo(x, y);
+  }
+  workCtx.lineTo(x2, y2);
+  workCtx.stroke();
+}
+
+function updateWorkSpring() {
+  if (!workDragging) {
+    const { leftAnchor, rightAnchor } = getWorkAnchors();
+    const restX = (leftAnchor + rightAnchor) / 2;
+
+    const displacement = workMassX - restX;
+    const force = -workK * displacement * 2;
+    const ax = force / workMass;
+
+    workMassVX += ax;
+    workMassVX *= (1 - workDamping);
+    workMassX += workMassVX;
+  }
+}
+
+function drawWorkSpringSystem() {
+  workCtx.clearRect(0, 0, workCanvas.clientWidth, workCanvas.clientHeight);
+
+  const { leftAnchor, rightAnchor } = getWorkAnchors();
+
+  workCtx.strokeStyle = "#C4C5BA";
+  workCtx.lineWidth = 3;
+
+  drawWorkZigZagSpring(leftAnchor, workMassY, workMassX - 110, workMassY);
+  drawWorkZigZagSpring(rightAnchor, workMassY, workMassX + 110, workMassY);
+
+  workCtx.fillStyle = "rgb(58, 105, 66)";
+  workCtx.font = "bold 60px Helvetica";
+  workCtx.textAlign = "center";
+  workCtx.textBaseline = "middle";
+  workCtx.fillText("\u21CB", workMassX, workMassY - 40);
+
+  workCtx.fillStyle = "#1B1B1B";
+  workCtx.font = "bold 50px Helvetica";
+  workCtx.fillText("My Work", workMassX, workMassY);
+}
+
+// Event handling for Work spring
+
+function getWorkEventX(e) {
+  if (e.touches) {
+    return e.touches[0].clientX - workCanvas.getBoundingClientRect().left;
+  }
+  return e.clientX - workCanvas.getBoundingClientRect().left;
+}
+
+workCanvas.addEventListener("mousedown", (e) => {
+  const x = getWorkEventX(e);
+  const y = e.clientY - workCanvas.getBoundingClientRect().top;
+  if (Math.abs(x - workMassX) < 100 && Math.abs(y - workMassY) < 40) {
+    workDragging = true;
+    workDragOffsetX = x - workMassX;
+  }
+});
+
+workCanvas.addEventListener("mousemove", (e) => {
+  if (workDragging) {
+    workMassX = getWorkEventX(e) - workDragOffsetX;
+    workMassVX = 0;
+  }
+});
+
+workCanvas.addEventListener("mouseup", () => {
+  workDragging = false;
+});
+
+workCanvas.addEventListener("mouseleave", () => {
+  workDragging = false;
+});
+
+workCanvas.addEventListener("touchstart", (e) => {
+  const x = getWorkEventX(e);
+  const y = e.touches[0].clientY - workCanvas.getBoundingClientRect().top;
+  if (Math.abs(x - workMassX) < 100 && Math.abs(y - workMassY) < 40) {
+    workDragging = true;
+    workDragOffsetX = x - workMassX;
+  }
+}, { passive: false });
+
+workCanvas.addEventListener("touchmove", (e) => {
+  if (workDragging) {
+    workMassX = getWorkEventX(e) - workDragOffsetX;
+    workMassVX = 0;
+  }
+}, { passive: false });
+
+workCanvas.addEventListener("touchend", () => {
+  workDragging = false;
+}, { passive: false });
+
+workCanvas.addEventListener("touchcancel", () => {
+  workDragging = false;
+}, { passive: false });
+
+// --- SINGLE ANIMATION LOOP FOR BOTH SPRINGS ---
+
+function springLoop() {
+  updateSpring();
+  drawSpringSystem();
+
+  updateWorkSpring();
+  drawWorkSpringSystem();
+
+  requestAnimationFrame(springLoop);
+}
+springLoop();
