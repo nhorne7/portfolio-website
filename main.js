@@ -11,7 +11,7 @@
   const DT     = 0.0015;
 
   // Rolling trail buffer
-  const TRAIL_LEN = 2200;
+  const TRAIL_LEN = 25000;
   const trail = [];
 
   // State
