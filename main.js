@@ -133,6 +133,7 @@
 
   requestAnimationFrame(attractorLoop);
 })();
+
 // ===================================================
 //  PENDULUM SECTION
 // ===================================================
@@ -156,16 +157,31 @@ class DoublePendulum {
 
   update() {
     if (this.isDragging) { this.omega1 = this.omega2 = 0; return; }
-    const { theta1, theta2, omega1, omega2, m1, m2, L1, L2 } = this;
-    const delta = theta1 - theta2, sinD = Math.sin(delta), cosD = Math.cos(delta);
-    const denom = 2*m1 + m2 - m2*Math.cos(2*delta);
-    const a1 = (-g*(2*m1+m2)*Math.sin(theta1) - m2*g*Math.sin(theta1-2*theta2)
-               - 2*sinD*m2*(omega2**2*L2 + omega1**2*L1*cosD)) / (L1*denom);
-    const a2 = (2*sinD*(omega1**2*L1*(m1+m2) + g*(m1+m2)*Math.cos(theta1)
-               + omega2**2*L2*m2*cosD)) / (L2*denom);
-    this.omega1 = (this.omega1 + a1*dt) * 0.999;
-    this.omega2 = (this.omega2 + a2*dt) * 0.999;
-    this.theta1 += this.omega1*dt; this.theta2 += this.omega2*dt;
+
+    // Sub-stepping integration loop (4 steps per frame) for rock-solid stability and accuracy
+    const SUB_STEPS = 4;
+    const subDt = dt / SUB_STEPS;
+    // 0.9983 sub-damp translates to roughly ~0.9932 overall damping per frame loop
+    const subDamping = 0.9983; 
+
+    for (let i = 0; i < SUB_STEPS; i++) {
+      const { theta1, theta2, omega1, omega2, m1, m2, L1, L2 } = this;
+      const delta = theta1 - theta2;
+      const sinD = Math.sin(delta);
+      const cosD = Math.cos(delta);
+      const denom = 2 * m1 + m2 - m2 * Math.cos(2 * delta);
+      
+      const a1 = (-g * (2 * m1 + m2) * Math.sin(theta1) - m2 * g * Math.sin(theta1 - 2 * theta2)
+                 - 2 * sinD * m2 * (omega2 ** 2 * L2 + omega1 ** 2 * L1 * cosD)) / (L1 * denom);
+      const a2 = (2 * sinD * (omega1 ** 2 * L1 * (m1 + m2) + g * (m1 + m2) * Math.cos(theta1)
+                 + omega2 ** 2 * L2 * m2 * cosD)) / (L2 * denom);
+      
+      this.omega1 = (this.omega1 + a1 * subDt) * subDamping;
+      this.omega2 = (this.omega2 + a2 * subDt) * subDamping;
+      this.theta1 += this.omega1 * subDt;
+      this.theta2 += this.omega2 * subDt;
+    }
+
     const b2 = this.getBob2();
     this.trace.push(b2);
     if (this.trace.length > 1000) this.trace.shift();
@@ -176,11 +192,19 @@ class DoublePendulum {
 
   draw(ctx) {
     const bob1 = this.getBob1(), bob2 = this.getBob2();
+    
+    // Batch optimized rendering path for the trace buffer lines
     if (this.trace.length > 1) {
-      ctx.beginPath(); ctx.strokeStyle = "#C4C5BA"; ctx.lineWidth = 1;
-      for (let i = 0; i < this.trace.length-1; i++) { ctx.moveTo(this.trace[i].x, this.trace[i].y); ctx.lineTo(this.trace[i+1].x, this.trace[i+1].y); }
+      ctx.beginPath(); 
+      ctx.strokeStyle = "#C4C5BA"; 
+      ctx.lineWidth = 1;
+      ctx.moveTo(this.trace[0].x, this.trace[0].y);
+      for (let i = 1; i < this.trace.length; i++) { 
+        ctx.lineTo(this.trace[i].x, this.trace[i].y); 
+      }
       ctx.stroke();
     }
+    
     ctx.strokeStyle = "#1B1B1B"; ctx.lineWidth = 1;
     ctx.beginPath(); ctx.moveTo(this.origin.x, this.origin.y); ctx.lineTo(bob1.x, bob1.y); ctx.lineTo(bob2.x, bob2.y); ctx.stroke();
     ctx.beginPath(); ctx.arc(bob1.x, bob1.y, 4, 0, Math.PI*2); ctx.fillStyle = "#1B1B1B"; ctx.fill();
@@ -231,8 +255,6 @@ class DoublePendulum {
       // Bob positions at release
       const b1x = ox + L1px * Math.sin(this.theta1);
       const b1y = oy + L1px * Math.cos(this.theta1);
-      const b2x = b1x + L2px * Math.sin(this.theta2);
-      const b2y = b1y + L2px * Math.cos(this.theta2);
 
       // Arm 1 tangent direction (perpendicular to the rod, positive = increasing theta1)
       const t1x =  Math.cos(this.theta1);
@@ -312,10 +334,7 @@ canvas.addEventListener("touchend",e=>{e.preventDefault();if(draggingPendulum){d
 canvas.addEventListener("touchcancel",e=>{e.preventDefault();if(draggingPendulum){draggingPendulum.releaseWithMomentum();draggingPendulum.isDragging=false;draggingPendulum=null;}},{passive:false});
 
 function pendulumLoop() {
-  // Draw with semi-transparent fill so traces show through header
   ctx.clearRect(0,0,canvas.width,canvas.height);
-  ctx.fillStyle = "rgba(228,228,222,0)"; // fully transparent — let the page bg show
-  ctx.fillRect(0,0,canvas.width,canvas.height);
   pendulums.forEach(p=>{ p.update(); p.draw(ctx); });
   requestAnimationFrame(pendulumLoop);
 }
