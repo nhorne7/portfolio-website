@@ -245,9 +245,9 @@ class DoublePendulum {
       // cursor vel is px/frame; omega is rad/s.
       // px/frame * (1/dt frames/s) / L_px = rad/s
       // Cap to prevent integrator blowup on very fast throws
-      const MAX_OMEGA = 25;
-      this.omega1 = Math.max(-MAX_OMEGA, Math.min(MAX_OMEGA, (vx * t1x + vy * t1y) / L1px / dt));
-      this.omega2 = Math.max(-MAX_OMEGA, Math.min(MAX_OMEGA, (vx * t2x + vy * t2y) / L2px / dt));
+      const MAX_OMEGA = 15;
+      this.omega1 = Math.max(-MAX_OMEGA, Math.min(MAX_OMEGA, (vx * t1x + vy * t1y) / L1px / dt * 0.35));
+      this.omega2 = Math.max(-MAX_OMEGA, Math.min(MAX_OMEGA, (vx * t2x + vy * t2y) / L2px / dt * 0.35));
     }
 
     // Reset tracking state
