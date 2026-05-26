@@ -1,5 +1,5 @@
 // ===================================================
-//  RUCKLIDGE ATTRACTOR  — hero background
+//   RUCKLIDGE ATTRACTOR  — hero background
 // ===================================================
 (function () {
   const ac   = document.getElementById("attractor-canvas");
@@ -131,15 +131,15 @@
 })();
 
 // ===================================================
-//  PENDULUM SECTION
+//   PENDULUM SECTION
 // ===================================================
 const canvas = document.getElementById("pendulums");
 const ctx    = canvas.getContext("2d");
 
-const g             = 9.81;
-const MTP           = 200; 
-const dt            = 1 / 60;
-const DRAG_RADIUS   = 22;
+const g              = 9.81;
+const MTP            = 200; 
+const dt             = 1 / 60;
+const DRAG_RADIUS    = 22;
 const PHYS_SUB_STEPS = 4;
 const FRAME_DAMPING = 0.999; 
 
@@ -150,13 +150,13 @@ class DoublePendulum {
     this.trace = []; 
     this.isDragging = false;       
     this.isDraggingJoint = false;  
-    this.isHoveredLetter = false; // Separates Hover für Buchstaben
-    this.isHoveredJoint = false;  // Separates Hover für Gelenk
+    this.isHoveredLetter = false; // Separate hover for letters
+    this.isHoveredJoint = false;  // Separate hover for joints
     this.letter = "";
     this._prevDragX = null; this._prevDragY = null;
     this._cursorVX = 0; this._cursorVY = 0;
     
-    // Trägheitsberechnung
+    // Inertia calculation
     this._prevJointX = null; this._prevJointY = null;
     this._jointAX = 0; this._jointAY = 0;
   }
@@ -174,7 +174,7 @@ class DoublePendulum {
     if (this.isDraggingJoint) {
       const b1 = this.getBob1();
       if (this._prevJointX !== null) {
-        // Exakte Geschwindigkeitsänderungen pro Physik-Step erfassen
+        // Capture exact velocity changes per physics step
         const vx = (b1.x - this._prevJointX) / MTP / dt;
         const vy = (b1.y - this._prevJointY) / MTP / dt;
         this._jointAX = vx / dt;
@@ -191,8 +191,8 @@ class DoublePendulum {
       if (this.isDraggingJoint) {
         this.omega1 = 0;
         
-        // Physik der 2. Stange als Einzelpendel an beschleunigter Aufhängung.
-        // Die Gravitation zieht immer lotrecht nach unten (g), Trägheitskräfte wirken dynamisch entgegen.
+        // Physics of the 2nd rod as a single pendulum attached to an accelerated support.
+        // Gravity always pulls vertically downward (g), while inertial forces counteract dynamically.
         const eff_gx = -this._jointAX * 0.12; 
         const eff_gy = g - this._jointAY * 0.12;
 
@@ -200,7 +200,7 @@ class DoublePendulum {
         this.omega2 = (this.omega2 + a2 * subDt) * subDamping;
         this.theta2 += this.omega2 * subDt;
       } else {
-        // Ungestörte Lagrange-Physik im Raum
+        // Undisturbed Lagrangian physics in space
         const delta = this.theta1 - this.theta2;
         const sinD = Math.sin(delta);
         const cosD = Math.cos(delta);
@@ -247,12 +247,12 @@ class DoublePendulum {
     
     ctx.beginPath(); ctx.arc(this.origin.x, this.origin.y, 4, 0, Math.PI*2); ctx.fillStyle = "#1B1B1B"; ctx.fill();
 
-    // Mittlerer Punkt: Leuchtet nur bei dediziertem Gelenk-Hover grün
+    // Middle point: Glows green only when explicitly hovering over the joint
     ctx.beginPath(); ctx.arc(bob1.x, bob1.y, 5, 0, Math.PI*2); 
     ctx.fillStyle = (this.isHoveredJoint || this.isDraggingJoint) ? "rgb(58,105,66)" : "#1B1B1B"; 
     ctx.fill();
     
-    // Buchstabe: Leuchtet nur bei dediziertem Buchstaben-Hover grün
+    // Letter: Glows green only when explicitly hovering over the letter
     const angle = Math.atan2(bob2.x-bob1.x, bob2.y-bob1.y);
     ctx.save(); ctx.translate(bob2.x, bob2.y); ctx.rotate(angle + Math.PI); ctx.scale(-1,-1);
     ctx.fillStyle = (this.isHoveredLetter || this.isDragging) ? "rgb(58,105,66)" : this.color;
@@ -398,7 +398,7 @@ canvas.addEventListener("mousemove", e=>{
     }
   }
   
-  // Getrenntes Hovering evaluieren (Exklusiver Hit-Test)
+  // Evaluate separate hovering (Exclusive hit-test)
   for(const p of pendulums) {
     const hoverJoint = Math.hypot(x - p.getBob1().x, y - p.getBob1().y) < DRAG_RADIUS;
     const hoverLetter = Math.hypot(x - p.getBob2().x, y - p.getBob2().y) < DRAG_RADIUS;
@@ -480,7 +480,7 @@ requestAnimationFrame(pendulumLoop);
 
 
 // ===================================================
-//  SPRING HEADER — shared class
+//   SPRING HEADER — shared class
 // ===================================================
 class SpringHeader {
   constructor(canvasId, label, icon = "\u21C6") {
@@ -567,7 +567,7 @@ springLoop();
 
 
 // ===================================================
-//  SCROLL-IN ANIMATIONS for experience cards
+//   SCROLL-IN ANIMATIONS for experience cards
 // ===================================================
 const observer = new IntersectionObserver(entries => {
   entries.forEach(entry => {
@@ -583,7 +583,7 @@ document.querySelectorAll(".exp-card").forEach(card=>observer.observe(card));
 
 
 // ===================================================
-//  GALLERY / LIGHTBOX
+//   GALLERY / LIGHTBOX
 // ===================================================
 let lbImages = [], lbIndex = 0;
 const lightbox  = document.getElementById("lightbox");
@@ -647,7 +647,7 @@ document.addEventListener("keydown", e => {
 
 
 // ===================================================
-//  TOGGLE IFRAMES
+//   TOGGLE IFRAMES
 // ===================================================
 document.querySelectorAll(".toggle-iframe").forEach(btn => {
   btn.addEventListener("click", () => {
