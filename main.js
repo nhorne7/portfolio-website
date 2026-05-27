@@ -1,8 +1,31 @@
 // ===================================================
+//   THEME COLORS — read by all simulations
+// ===================================================
+function getThemeColors() {
+  const dark = document.body.classList.contains('dark-mode');
+  return {
+    dark,
+    bg:        dark ? '#264941' : '#E4E4DE',
+    text:      dark ? '#e8e6d9' : '#1B1B1B',
+    muted:     dark ? '#a8b8b2' : '#5a5a55',
+    green:     dark ? '#8fd4a0' : 'rgb(58,105,66)',
+    greenRgb:  dark ? '143,212,160' : '58,105,66',
+    rod:       dark ? '#e8e6d9' : '#1B1B1B',
+    traceBase: dark ? '232,230,217' : '196,197,186',
+    springWire: dark ? '#5a8a78' : '#C4C5BA',
+    springLabel: dark ? '#e8e6d9' : '#1B1B1B',
+    attractorTrail: dark ? '180,218,195' : '100,101,94',
+    attractorDot: dark ? 'rgba(143,212,160,0.9)' : 'rgba(58,105,66,0.85)',
+    attractorEq:  dark ? 'rgba(180,218,195,0.22)' : 'rgba(155,157,146,0.28)',
+  };
+}
+
+// ===================================================
 //   RUCKLIDGE ATTRACTOR  — hero background
 // ===================================================
 (function () {
   const ac   = document.getElementById("attractor-canvas");
+  if (!ac) return;
   const actx = ac.getContext("2d");
 
   const KAPPA  = 2.0;
@@ -81,6 +104,7 @@
     const cx    = W * 0.68;
     const cy    = H * 0.50;
     const scale = Math.min(W, H) * 0.11;
+    const C     = getThemeColors();
 
     if (trailCount > 1) {
       actx.lineWidth = 1.4;
@@ -99,7 +123,7 @@
         const p1 = project(trail[idx1].x, trail[idx1].y, trail[idx1].z, cx, cy, scale);
 
         actx.beginPath();
-        actx.strokeStyle = `rgba(100, 101, 94, ${alpha.toFixed(3)})`;
+        actx.strokeStyle = `rgba(${C.attractorTrail}, ${alpha.toFixed(3)})`;
         actx.moveTo(p0.sx, p0.sy);
         actx.lineTo(p1.sx, p1.sy);
         actx.stroke();
@@ -109,14 +133,14 @@
     const hp = project(rx, ry, rz, cx, cy, scale);
     actx.beginPath();
     actx.arc(hp.sx, hp.sy, 4, 0, Math.PI * 2);
-    actx.fillStyle = "rgba(58,105,66,0.85)";
+    actx.fillStyle = C.attractorDot;
     actx.fill();
 
     const eq = project(0, 1.5, 4.0, cx, cy, scale);
     actx.save();
     actx.setTransform(1, 0, 0, 1, 0, 0);
     actx.font = "italic 30px Georgia, serif";
-    actx.fillStyle = "rgba(155, 157, 146, 0.28)";
+    actx.fillStyle = C.attractorEq;
     actx.textAlign = "left";
     actx.textBaseline = "top";
     actx.fillText("ẋ = −κx + λy − yz", eq.sx + 250, eq.sy + 800);
@@ -150,13 +174,11 @@ class DoublePendulum {
     this.trace = []; 
     this.isDragging = false;       
     this.isDraggingJoint = false;  
-    this.isHoveredLetter = false; // Separate hover for letters
-    this.isHoveredJoint = false;  // Separate hover for joints
+    this.isHoveredLetter = false;
+    this.isHoveredJoint = false;
     this.letter = "";
     this._prevDragX = null; this._prevDragY = null;
     this._cursorVX = 0; this._cursorVY = 0;
-    
-    // Inertia calculation
     this._prevJointX = null; this._prevJointY = null;
     this._jointAX = 0; this._jointAY = 0;
   }
@@ -174,7 +196,6 @@ class DoublePendulum {
     if (this.isDraggingJoint) {
       const b1 = this.getBob1();
       if (this._prevJointX !== null) {
-        // Capture exact velocity changes per physics step
         const vx = (b1.x - this._prevJointX) / MTP / dt;
         const vy = (b1.y - this._prevJointY) / MTP / dt;
         this._jointAX = vx / dt;
@@ -190,17 +211,12 @@ class DoublePendulum {
     for (let i = 0; i < PHYS_SUB_STEPS; i++) {
       if (this.isDraggingJoint) {
         this.omega1 = 0;
-        
-        // Physics of the 2nd rod as a single pendulum attached to an accelerated support.
-        // Gravity always pulls vertically downward (g), while inertial forces counteract dynamically.
         const eff_gx = -this._jointAX * 0.12; 
         const eff_gy = g - this._jointAY * 0.12;
-
         const a2 = (-eff_gy * Math.sin(this.theta2) + eff_gx * Math.cos(this.theta2)) / L2;
         this.omega2 = (this.omega2 + a2 * subDt) * subDamping;
         this.theta2 += this.omega2 * subDt;
       } else {
-        // Undisturbed Lagrangian physics in space
         const delta = this.theta1 - this.theta2;
         const sinD = Math.sin(delta);
         const cosD = Math.cos(delta);
@@ -227,12 +243,13 @@ class DoublePendulum {
 
   drawTrace(ctx) {
     if (this.trace.length > 1) {
+      const C = getThemeColors();
       ctx.save();
       ctx.lineWidth = 1.2;
       for (let i = 1; i < this.trace.length; i++) {
         const t = i / this.trace.length; 
         const alpha = t > 0.25 ? 0.45 : (t / 0.25) * 0.45;
-        ctx.strokeStyle = `rgba(196, 197, 186, ${alpha.toFixed(3)})`;
+        ctx.strokeStyle = `rgba(${C.traceBase}, ${alpha.toFixed(3)})`;
         ctx.beginPath(); ctx.moveTo(this.trace[i - 1].x, this.trace[i - 1].y); ctx.lineTo(this.trace[i].x, this.trace[i].y); ctx.stroke();
       }
       ctx.restore();
@@ -241,21 +258,20 @@ class DoublePendulum {
 
   drawPendulum(ctx) {
     const bob1 = this.getBob1(), bob2 = this.getBob2();
+    const C = getThemeColors();
     
-    ctx.strokeStyle = "#1B1B1B"; ctx.lineWidth = 1;
+    ctx.strokeStyle = C.rod; ctx.lineWidth = 1;
     ctx.beginPath(); ctx.moveTo(this.origin.x, this.origin.y); ctx.lineTo(bob1.x, bob1.y); ctx.lineTo(bob2.x, bob2.y); ctx.stroke();
     
-    ctx.beginPath(); ctx.arc(this.origin.x, this.origin.y, 4, 0, Math.PI*2); ctx.fillStyle = "#1B1B1B"; ctx.fill();
+    ctx.beginPath(); ctx.arc(this.origin.x, this.origin.y, 4, 0, Math.PI*2); ctx.fillStyle = C.rod; ctx.fill();
 
-    // Middle point: Glows green only when explicitly hovering over the joint
     ctx.beginPath(); ctx.arc(bob1.x, bob1.y, 5, 0, Math.PI*2); 
-    ctx.fillStyle = (this.isHoveredJoint || this.isDraggingJoint) ? "rgb(58,105,66)" : "#1B1B1B"; 
+    ctx.fillStyle = (this.isHoveredJoint || this.isDraggingJoint) ? C.green : C.rod; 
     ctx.fill();
     
-    // Letter: Glows green only when explicitly hovering over the letter
     const angle = Math.atan2(bob2.x-bob1.x, bob2.y-bob1.y);
     ctx.save(); ctx.translate(bob2.x, bob2.y); ctx.rotate(angle + Math.PI); ctx.scale(-1,-1);
-    ctx.fillStyle = (this.isHoveredLetter || this.isDragging) ? "rgb(58,105,66)" : this.color;
+    ctx.fillStyle = (this.isHoveredLetter || this.isDragging) ? C.green : C.text;
     ctx.font = "bold 32px Helvetica"; ctx.textAlign = "center"; ctx.textBaseline = "middle";
     ctx.fillText(this.letter, 0, 0); ctx.restore();
   }
@@ -267,7 +283,6 @@ class DoublePendulum {
       this._cursorVY = alpha * (y - this._prevDragY) + (1 - alpha) * this._cursorVY;
     }
     this._prevDragX = x; this._prevDragY = y;
-
     const dx = x - this.origin.x;
     const dy = y - this.origin.y;
     this.theta1 = Math.atan2(dx, dy);
@@ -398,7 +413,6 @@ canvas.addEventListener("mousemove", e=>{
     }
   }
   
-  // Evaluate separate hovering (Exclusive hit-test)
   for(const p of pendulums) {
     const hoverJoint = Math.hypot(x - p.getBob1().x, y - p.getBob1().y) < DRAG_RADIUS;
     const hoverLetter = Math.hypot(x - p.getBob2().x, y - p.getBob2().y) < DRAG_RADIUS;
@@ -485,6 +499,7 @@ requestAnimationFrame(pendulumLoop);
 class SpringHeader {
   constructor(canvasId, label, icon = "\u21C6") {
     this.canvas = document.getElementById(canvasId);
+    if (!this.canvas) return;
     this.ctx    = this.canvas.getContext("2d");
     this.label  = label; this.icon = icon;
     this.massX = 0; this.massY = 0; this.massVX = 0;
@@ -525,15 +540,16 @@ class SpringHeader {
 
   draw() {
     const ctx=this.ctx, W=this.canvas.clientWidth, H=this.canvas.clientHeight;
+    const C = getThemeColors();
     ctx.clearRect(0,0,W,H);
     const{left,right}=this._anchors(), hw=110;
-    ctx.strokeStyle="#C4C5BA"; ctx.lineWidth=3;
+    ctx.strokeStyle = C.springWire; ctx.lineWidth=3;
     this._drawZigzag(left,this.massY,this.massX-hw,this.massY);
     this._drawZigzag(right,this.massY,this.massX+hw,this.massY);
-    ctx.fillStyle="rgb(58,105,66)"; ctx.font="bold 56px Helvetica";
+    ctx.fillStyle = C.green; ctx.font="bold 56px Helvetica";
     ctx.textAlign="center"; ctx.textBaseline="middle";
     ctx.fillText(this.icon, this.massX, this.massY-36);
-    ctx.fillStyle="#1B1B1B"; ctx.font="bold 46px Helvetica";
+    ctx.fillStyle = C.springLabel; ctx.font="bold 46px Helvetica";
     ctx.fillText(this.label, this.massX, this.massY+6);
   }
 
