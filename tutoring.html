@@ -164,7 +164,18 @@
       .value-card:hover { transform: translateY(-4px); box-shadow: 0 10px 26px var(--shadow); }
       .value-card h3 { font-size: 16px; margin-bottom: 8px; }
       .value-card p { font-size: 13.5px; line-height: 1.6; color: var(--muted); }
-      .value-card .value-icon { font-size: 22px; margin-bottom: 10px; display: block; }
+      .value-card .value-icon {
+        display: flex; align-items: center; justify-content: center;
+        width: 46px; height: 46px; margin-bottom: 14px;
+        border-radius: 12px; background: var(--green-lt);
+        color: var(--green);
+      }
+      .value-card .value-icon svg { width: 24px; height: 24px; display: block; }
+      /* Outline icon defaults: inherit color (green via parent), thin stroke, no fill */
+      .ico {
+        fill: none; stroke: currentColor; stroke-width: 1.7;
+        stroke-linecap: round; stroke-linejoin: round;
+      }
 
       /* ---- Window / cohort cards ---- */
       .window-grid {
@@ -199,6 +210,10 @@
         padding: 3px 8px;
         margin-bottom: 6px;
       }
+      .window-toprow { display: flex; align-items: center; gap: 9px; margin-bottom: 4px; }
+      .window-toprow .window-tag { margin-bottom: 0; }
+      .window-cal { color: var(--green); display: flex; }
+      .window-cal svg { width: 17px; height: 17px; }
 
       .window-dates { font-size: 19px; font-weight: 700; line-height: 1.25; }
       .window-len { font-size: 12px; color: var(--muted); margin-bottom: 8px; }
@@ -229,6 +244,14 @@
 
       .track-card:hover { transform: translateY(-3px); box-shadow: 0 8px 22px var(--shadow); }
       .track-card h3 { font-size: 16px; margin-bottom: 6px; }
+      .track-head { display: flex; align-items: center; gap: 11px; margin-bottom: 4px; }
+      .track-head h3 { margin-bottom: 0; }
+      .track-ico {
+        display: flex; align-items: center; justify-content: center;
+        width: 40px; height: 40px; flex-shrink: 0;
+        border-radius: 10px; background: var(--green-lt); color: var(--green);
+      }
+      .track-ico svg { width: 22px; height: 22px; }
       .track-card h3 .lvl { color: var(--green); font-weight: 700; font-size: 13px; }
       .track-list { list-style: none; margin-top: 10px; display: flex; flex-direction: column; gap: 6px; }
       .track-list li { font-size: 13px; color: var(--muted); line-height: 1.5; padding-left: 18px; position: relative; }
@@ -318,21 +341,18 @@
         position: relative;
       }
 
-      .step::before {
-        counter-increment: step;
-        content: counter(step);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 30px;
-        height: 30px;
-        border-radius: 50%;
-        background: var(--green);
-        color: var(--bg);
-        font-weight: 700;
-        font-size: 15px;
+      .step-top {
+        display: flex; align-items: center; justify-content: space-between;
         margin-bottom: 12px;
       }
+      .step-num {
+        display: flex; align-items: center; justify-content: center;
+        width: 30px; height: 30px; border-radius: 50%;
+        background: var(--green); color: var(--bg);
+        font-weight: 700; font-size: 15px; flex-shrink: 0;
+      }
+      .step-ico { color: var(--green); opacity: 0.9; }
+      .step-ico svg { width: 24px; height: 24px; display: block; }
 
       .step h3 { font-size: 15px; margin-bottom: 6px; }
       .step p { font-size: 13px; line-height: 1.6; color: var(--muted); }
@@ -604,22 +624,22 @@
     </div>
     <div class="value-grid">
       <div class="value-card">
-        <span class="value-icon">🎯</span>
+        <span class="value-icon"><svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/></svg></span>
         <h3>Front-load the hard units</h3>
         <p>We tackle the concepts that trip students up most — mechanics, fields, calculus, proof — so they're familiar before they're graded.</p>
       </div>
       <div class="value-card">
-        <span class="value-icon">👥</span>
+        <span class="value-icon"><svg class="ico" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3.5 19a5.5 5.5 0 0 1 11 0"/><circle cx="17" cy="9" r="2.4"/><path d="M16 14.2a4.6 4.6 0 0 1 4.5 4.8"/></svg></span>
         <h3>Small cohorts</h3>
         <p>Groups are capped at 6 students, so every session stays personal and every question gets answered.</p>
       </div>
       <div class="value-card">
-        <span class="value-icon">🧠</span>
+        <span class="value-icon"><svg class="ico" viewBox="0 0 24 24"><path d="M12 3 1.5 8 12 13l10.5-5L12 3Z"/><path d="M6 10.5V15c0 1.4 2.7 2.8 6 2.8s6-1.4 6-2.8v-4.5"/><path d="M22.5 8v5"/></svg></span>
         <h3>Taught by someone who did it</h3>
         <p>A 44/45 IB graduate who has since taught physics and maths to 300+ university students. Real teaching, not just a high score.</p>
       </div>
       <div class="value-card">
-        <span class="value-icon">💻</span>
+        <span class="value-icon"><svg class="ico" viewBox="0 0 24 24"><rect x="2.5" y="4" width="19" height="13" rx="1.6"/><path d="M8.5 21h7M12 17v4"/><path d="m9.5 10.5 2 2 3.5-4"/></svg></span>
         <h3>Fully online</h3>
         <p>Live, interactive sessions you can join from anywhere — with recordings so nothing is missed.</p>
       </div>
@@ -634,7 +654,10 @@
     </div>
     <div class="track-grid">
       <div class="track-card">
-        <h3>Physics <span class="lvl">SL / HL</span></h3>
+        <div class="track-head">
+          <span class="track-ico"><svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1.6" fill="currentColor" stroke="none"/><ellipse cx="12" cy="12" rx="10" ry="4.2"/><ellipse cx="12" cy="12" rx="10" ry="4.2" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10" ry="4.2" transform="rotate(120 12 12)"/></svg></span>
+          <h3>Physics <span class="lvl">SL / HL</span></h3>
+        </div>
         <ul class="track-list">
           <li>Mechanics &amp; kinematics</li>
           <li>Fields, forces &amp; circular motion</li>
@@ -644,7 +667,10 @@
         </ul>
       </div>
       <div class="track-card">
-        <h3>Mathematics <span class="lvl">AA / AI · SL / HL</span></h3>
+        <div class="track-head">
+          <span class="track-ico"><svg class="ico" viewBox="0 0 24 24"><path d="M4 19h16"/><path d="M4 5h7"/><path d="M9 5c0 7-2 14-5 14"/><path d="m14 9 6 6M20 9l-6 6"/></svg></span>
+          <h3>Mathematics <span class="lvl">AA / AI · SL / HL</span></h3>
+        </div>
         <ul class="track-list">
           <li>Functions &amp; algebra foundations</li>
           <li>Differential &amp; integral calculus</li>
@@ -665,28 +691,40 @@
     </div>
     <div class="window-grid">
       <div class="window-card">
-        <span class="window-tag">Window 1</span>
+        <div class="window-toprow">
+          <span class="window-cal"><svg class="ico" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="16" rx="1.6"/><path d="M3.5 9.5h17M8 3v4M16 3v4"/></svg></span>
+          <span class="window-tag">Window 1</span>
+        </div>
         <div class="window-dates">6 – 17 July</div>
         <div class="window-len">2 weeks · Mon–Fri · 10 sessions</div>
         <div class="window-desc">The opening sprint — a clean fortnight to get ahead. Take one subject, or both in parallel slots.</div>
         <div class="window-seats">Enrolling now · early-bird</div>
       </div>
       <div class="window-card">
-        <span class="window-tag">Window 2</span>
+        <div class="window-toprow">
+          <span class="window-cal"><svg class="ico" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="16" rx="1.6"/><path d="M3.5 9.5h17M8 3v4M16 3v4"/></svg></span>
+          <span class="window-tag">Window 2</span>
+        </div>
         <div class="window-dates">27 July – 7 Aug</div>
         <div class="window-len">2 weeks · Mon–Fri · 10 sessions</div>
         <div class="window-desc">Mid-summer sprint. A natural second step if you stacked an earlier window.</div>
         <div class="window-seats">Enrolling now</div>
       </div>
       <div class="window-card">
-        <span class="window-tag">Window 3</span>
+        <div class="window-toprow">
+          <span class="window-cal"><svg class="ico" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="16" rx="1.6"/><path d="M3.5 9.5h17M8 3v4M16 3v4"/></svg></span>
+          <span class="window-tag">Window 3</span>
+        </div>
         <div class="window-dates">10 – 21 August</div>
         <div class="window-len">2 weeks · Mon–Fri · 10 sessions</div>
         <div class="window-desc">Late-summer sprint to consolidate before term approaches.</div>
         <div class="window-seats">Enrolling now</div>
       </div>
       <div class="window-card">
-        <span class="window-tag">Window 4</span>
+        <div class="window-toprow">
+          <span class="window-cal"><svg class="ico" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="16" rx="1.6"/><path d="M3.5 9.5h17M8 3v4M16 3v4"/></svg></span>
+          <span class="window-tag">Window 4</span>
+        </div>
         <div class="window-dates">31 Aug – 11 Sept</div>
         <div class="window-len">2 weeks · Mon–Fri · 10 sessions</div>
         <div class="window-desc">The final run-up — walk into the school year already ahead.</div>
@@ -765,18 +803,34 @@
     </div>
     <div class="steps">
       <div class="step">
+        <div class="step-top">
+          <span class="step-num">1</span>
+          <span class="step-ico"><svg class="ico" viewBox="0 0 24 24"><path d="M5 4h9l5 5v11a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Z"/><path d="M13.5 4v5h5"/><path d="M8 13h7M8 16.5h5"/></svg></span>
+        </div>
         <h3>Send an enquiry</h3>
         <p>Fill in the short form below with the subject, level and window you'd like. No payment yet.</p>
       </div>
       <div class="step">
+        <div class="step-top">
+          <span class="step-num">2</span>
+          <span class="step-ico"><svg class="ico" viewBox="0 0 24 24"><path d="M5 4h9l5 5v11a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Z"/><path d="M13.5 4v5h5"/><path d="m8.5 14.5 2 2 4-4.5"/></svg></span>
+        </div>
         <h3>Confirm the details</h3>
         <p>I'll reply with available time slots, confirm the topics, and send a short invoice with bank details.</p>
       </div>
       <div class="step">
+        <div class="step-top">
+          <span class="step-num">3</span>
+          <span class="step-ico"><svg class="ico" viewBox="0 0 24 24"><path d="M3 9.5 12 4l9 5.5"/><path d="M4.5 9.5v8M9 9.5v8M15 9.5v8M19.5 9.5v8"/><path d="M3 20.5h18"/></svg></span>
+        </div>
         <h3>Secure with transfer</h3>
         <p>Pay by SEPA bank transfer (IBAN). Your seat is locked once the deposit clears.</p>
       </div>
       <div class="step">
+        <div class="step-top">
+          <span class="step-num">4</span>
+          <span class="step-ico"><svg class="ico" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="16" rx="1.6"/><path d="M3.5 9.5h17M8 3v4M16 3v4"/><path d="m9 14.5 2 2 4-4"/></svg></span>
+        </div>
         <h3>Join the cohort</h3>
         <p>You'll get the joining link, schedule, and prep materials ahead of your sprint's start date.</p>
       </div>
