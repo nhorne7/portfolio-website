@@ -325,8 +325,14 @@ html, body {
 
 /* Lift pendulum box above attractor (precaution) */
 #pendulum-box {
-  position: relative;
-  z-index: 1;
+  width: 100%;
+  background: transparent;
+  /* Pull canvas upward so letters hang behind the header */
+  margin-top: -40px;
+  
+  /* Add these lines to fade the bottom 30% out to transparent */
+  -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
 }
 
 /* Lift intro content above the canvas */
