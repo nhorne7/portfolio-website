@@ -23,15 +23,6 @@
     <title>Noah Horne — Portfolio</title>
     <link rel="stylesheet" href="style.css" />
 </head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-CR78ZZ0YES"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-CR78ZZ0YES');
-</script>
 <body>
 
   <header id="site-header">
@@ -42,7 +33,6 @@
         <a href="#about">About</a>
         <a href="#experience">Experience</a>
         <a href="#MyWork">Work</a>
-        <a href="tutoring.html">IB Tutoring</a>
         <a href="contact.html">Contact</a>
       </div>
       <div class="nav-social">
@@ -75,11 +65,11 @@
     <div id="intro">
       <canvas id="attractor-canvas"></canvas>
       <div class="content">
+        <a href="#experience" class="status-badge"><span class="status-dot"></span>Now: MSc Mathematical &amp; Theoretical Physics · University of Oxford</a>
         <h1>Hello, I'm Noah.</h1>
         <p>Physicist, researcher, and aspiring theorist — pursuing fusion energy through <b>mathematical physics.</b></p>
         <div class="intro-links">
-          <a href="tutoring.html" class="pill-btn">IB Tutoring →</a>
-          <a href="#experience" class="pill-btn pill-outline">Experience</a>
+          <a href="#experience" class="pill-btn">Experience →</a>
           <a href="/assets/PDFs/NoahHorneCV.pdf" target="_blank" class="pill-btn pill-outline">CV ↗</a>
           <a href="contact.html" class="pill-btn-2">Contact</a>
         </div>
@@ -106,23 +96,24 @@
         <div class="flag-card"><span class="flag-emoji">🇬🇧</span><span class="flag-label">Oxford, United Kingdom</span></div>
 
         <div class="quick-facts">
-          <div class="fact"><span class="fact-label">Degree</span><span class="fact-val">Physics &amp; Data Science</span></div>
+          <div class="fact"><span class="fact-label">Currently</span><span class="fact-val">MSc Mathematical &amp; Theoretical Physics, Oxford</span></div>
+          <div class="fact"><span class="fact-label">BSc</span><span class="fact-val">Physics &amp; Data Science</span></div>
           <div class="fact"><span class="fact-label">Grade</span><span class="fact-val">1.06 (Top of Cohort)</span></div>
           <div class="fact"><span class="fact-label">Languages</span><span class="fact-val">English, German</span></div>
         </div>
       </div>
       <div class="about-text-col">
-        <p>I am a recent graduate of <b>Constructor University (CUB)</b> in Bremen, Germany, where I completed a double major in <b>Physics and Data Science</b> with additional specialization in Mathematics. I graduated at the top of my cohort with a final grade of <b>1.06</b>, reflecting sustained academic excellence across theoretical and applied physics, mathematics, and computational science.</p>
+        <p>I am currently studying for the <b>MSc in Mathematical and Theoretical Physics at the University of Oxford</b>, building a rigorous foundation in nonlinear systems, field theory, and statistical physics with the aim of contributing to <b>nuclear fusion research</b> — one of the most consequential scientific challenges of our time.</p>
+
+        <p>Before Oxford, I studied at <b>Constructor University (CUB)</b> in Bremen, Germany, where I completed a double major in <b>Physics and Data Science</b> with additional specialization in Mathematics. I graduated at the top of my cohort with a final grade of <b>1.06</b>, reflecting sustained academic excellence across theoretical and applied physics, mathematics, and computational science.</p>
 
         <p>My academic training has been complemented by research and leadership experience across multiple domains. I have conducted research in <b>molecular dynamics</b> and <b>nanophotonics</b>, served as a <b>teaching assistant</b> for three high-enrollment courses (200+ students), and acted as <b>Physics major representative</b> at CUB. In parallel, I developed leadership experience as <b>president of the Constructor University Rowing Team</b>.</p>
 
         <p>In the summer of 2025, I conducted research at the <b>Arctic University of Norway (UiT Tromsø)</b> in the field of nanophotonics, independently developing an automation pipeline for an optical tweezing–coupled Raman spectroscopy system. I further designed a novel dynamics-based nanoparticle morphotype classification framework — the basis of a forthcoming first-author publication in the <i>Journal of Nanoparticle Research</i>.</p>
 
-        <p>This summer, I have been <b>accepted to the Max Planck Institute for Plasma Physics (IPP) Summer University for Fusion and Plasma Physics 2026.</b> Throughout the summer, I will have the opportunity to engage with topics including plasma turbulence, kinetic theory, magnetic confinement, magnetohydrodynamics (MHD), and the physics of fusion devices from some of the leading physicists in the field.</p>
+        <p>In summer 2026, I took part in the <b>Max Planck Institute for Plasma Physics (IPP) Summer University for Fusion and Plasma Physics</b>, engaging with plasma turbulence, kinetic theory, magnetic confinement, magnetohydrodynamics (MHD), and the physics of fusion devices with some of the leading physicists in the field.</p>
 
-        <p>My long-term goal is to contribute to the development of practical fusion energy through research in plasma physics and magnetohydrodynamics, with a particular interest in how complex magnetic field topologies can be designed to improve plasma confinement and stability. I hope to eventually contribute to the next generation of magnetic confinement concepts, and this is one step in my path to do so.</p>
-        
-        <p>I am now preparing to pursue the <b>MSc in Mathematical and Theoretical Physics at the University of Oxford</b>, aiming to build the rigorous foundation in nonlinear systems, field theory, and statistical physics necessary to contribute to <b>nuclear fusion research</b> — one of the most consequential scientific challenges of our time.</p>
+        <p>My long-term goal is to contribute to the development of practical fusion energy through research in plasma physics and magnetohydrodynamics, with a particular interest in how complex magnetic field topologies can be designed to improve plasma confinement and stability. I hope to eventually contribute to the next generation of magnetic confinement concepts, and my studies at Oxford are the next step on that path.</p>
       </div>
     </div>
   </div>
@@ -135,8 +126,20 @@
 
     <div class="experience-grid">
 
-      <!-- CARD 0: Optical Tweezers -->
-      <div class="exp-card" data-index="0">
+      <!-- CARD: Oxford (current) -->
+      <div class="exp-card exp-card--current" data-index="0">
+        <div class="exp-card-inner">
+          <div class="exp-tag">Current</div>
+          <div class="exp-where">University of Oxford</div>
+          <h3 class="exp-title">MSc — Mathematical &amp; Theoretical Physics</h3>
+          <p class="exp-desc">Studying for the MSc in Mathematical and Theoretical Physics at Oxford, building rigorous foundations in nonlinear systems, field theory, and plasma physics — with long-term focus on nuclear fusion research.</p>
+          <div class="exp-tags"><span>Theoretical Physics</span><span>Mathematical Physics</span><span>Plasma Physics</span></div>
+          <div class="exp-date">2026 – present · Oxford, United Kingdom</div>
+        </div>
+      </div>
+
+      <!-- CARD: Optical Tweezers -->
+      <div class="exp-card" data-index="1">
         <div class="exp-card-inner">
           <div class="exp-tag">Research</div>
           <div class="exp-where">UiT — Arctic University of Norway</div>
@@ -149,8 +152,8 @@
         </div>
       </div>
 
-      <!-- CARD 1: Teaching -->
-      <div class="exp-card" data-index="1">
+      <!-- CARD: Teaching -->
+      <div class="exp-card" data-index="2">
         <div class="exp-card-inner">
           <div class="exp-tag">Teaching</div>
           <div class="exp-where">Constructor University Bremen</div>
@@ -163,8 +166,8 @@
         </div>
       </div>
 
-      <!-- CARD 2: Molecular Dynamics -->
-      <div class="exp-card" data-index="2">
+      <!-- CARD: Molecular Dynamics -->
+      <div class="exp-card" data-index="3">
         <div class="exp-card-inner">
           <div class="exp-tag">Research</div>
           <div class="exp-where">Constructor University Bremen</div>
@@ -176,8 +179,8 @@
         </div>
       </div>
 
-      <!-- CARD 3: Rowing -->
-      <div class="exp-card" data-index="3">
+      <!-- CARD: Rowing -->
+      <div class="exp-card" data-index="4">
         <div class="exp-card-inner">
           <div class="exp-tag">Leadership</div>
           <div class="exp-where">Constructor University Bremen</div>
@@ -189,8 +192,8 @@
         </div>
       </div>
 
-      <!-- CARD 4: Physics Rep -->
-      <div class="exp-card" data-index="4">
+      <!-- CARD: Physics Rep -->
+      <div class="exp-card" data-index="5">
         <div class="exp-card-inner">
           <div class="exp-tag">Representation</div>
           <div class="exp-where">Constructor University Bremen</div>
@@ -202,8 +205,8 @@
         </div>
       </div>
 
-      <!-- CARD 5: IB Valedictorian -->
-      <div class="exp-card" data-index="5">
+      <!-- CARD: IB Valedictorian -->
+      <div class="exp-card" data-index="6">
         <div class="exp-card-inner">
           <div class="exp-tag">Education</div>
           <div class="exp-where">Anglo-American School of Sofia</div>
@@ -211,18 +214,6 @@
           <p class="exp-desc">Graduated as class valedictorian with an IB score of 44/45, placing among the top percentile of IB candidates worldwide. Studied in Sofia, Bulgaria during formative years.</p>
           <div class="exp-tags"><span>IB 44/45</span><span>Valedictorian</span><span>Mathematics</span><span>Sciences</span></div>
           <div class="exp-date">Graduated 2022 · Sofia, Bulgaria</div>
-        </div>
-      </div>
-
-      <!-- CARD 6: Oxford -->
-      <div class="exp-card exp-card--future" data-index="6">
-        <div class="exp-card-inner">
-          <div class="exp-tag exp-tag--future">Upcoming</div>
-          <div class="exp-where">University of Oxford</div>
-          <h3 class="exp-title">MSc — Mathematical &amp; Theoretical Physics</h3>
-          <p class="exp-desc">Preparing to pursue the MSc in Mathematical and Theoretical Physics at Oxford, building rigorous foundations in nonlinear systems, field theory, and plasma physics — with long-term focus on nuclear fusion research.</p>
-          <div class="exp-tags"><span>Theoretical Physics</span><span>Mathematical Physics</span><span>Plasma Physics</span></div>
-          <div class="exp-date">Upcoming · Oxford, United Kingdom</div>
         </div>
       </div>
 
@@ -288,9 +279,9 @@
   </div>
 
   <footer>
-    <p>Noah Horne · Bremen, Germany · <a href="https://github.com/nhorne7" target="_blank">GitHub ↗</a> · <a href="https://www.linkedin.com/in/noah-horne" target="_blank">LinkedIn ↗</a></p>
+    <p>Noah Horne · Oxford, United Kingdom · <a href="https://github.com/nhorne7" target="_blank">GitHub ↗</a> · <a href="https://www.linkedin.com/in/noah-horne" target="_blank">LinkedIn ↗</a></p>
     <p class="footer-legal">
-      <a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutzerklärung</a>
+      <a href="privacy.html">Privacy &amp; Cookies</a> · <a href="#" data-cookie-settings>Cookie settings</a>
     </p>
   </footer>
 
@@ -307,16 +298,17 @@
   </div>
 
   <!-- COOKIE CONSENT BANNER -->
-  <div id="cookie-banner" class="hidden" role="region" aria-label="Cookie-Einwilligung">
+  <div id="cookie-banner" class="hidden" role="region" aria-label="Cookie consent">
     <div class="cookie-text">
-      <strong>🍪 Cookies &amp; Datenschutz</strong> — Diese Website verwendet Google Analytics zur anonymen Analyse des Nutzerverhaltens. Ihre IP-Adresse wird dabei anonymisiert. Weitere Informationen finden Sie in unserer <a href="datenschutz.html">Datenschutzerklärung</a>.
+      <strong>🍪 Cookies</strong> — With your permission, this site uses Google Analytics cookies to count visits and see which pages are read. Nothing is set unless you accept. See the <a href="privacy.html">privacy notice</a>.
     </div>
     <div class="cookie-actions">
-      <button class="cookie-btn decline" id="cookie-decline">Ablehnen</button>
-      <button class="cookie-btn accept" id="cookie-accept">Akzeptieren</button>
+      <button class="cookie-btn decline" id="cookie-decline">Decline</button>
+      <button class="cookie-btn accept" id="cookie-accept">Accept</button>
     </div>
   </div>
 
+  <script src="consent.js"></script>
   <script src="main.js"></script>
   <script>
     // ===================================================
@@ -353,44 +345,6 @@
       setDark(saved ? saved === 'dark' : prefersDark, false);
 
       checkbox.addEventListener('change', () => setDark(checkbox.checked, true));
-    })();
-
-    // ===================================================
-    //   COOKIE CONSENT
-    // ===================================================
-    (function() {
-      const banner  = document.getElementById('cookie-banner');
-      const accept  = document.getElementById('cookie-accept');
-      const decline = document.getElementById('cookie-decline');
-      const consent = localStorage.getItem('cookie-consent');
-
-      if (!consent) {
-        // Small delay so banner slides in after page load
-        setTimeout(() => banner.classList.remove('hidden'), 800);
-      }
-
-      function dismissBanner() {
-        banner.classList.add('hidden');
-      }
-
-      accept.addEventListener('click', function() {
-        localStorage.setItem('cookie-consent', 'accepted');
-        dismissBanner();
-        // Enable Google Analytics
-        window['ga-disable-G-CR78ZZ0YES'] = false;
-      });
-
-      decline.addEventListener('click', function() {
-        localStorage.setItem('cookie-consent', 'declined');
-        dismissBanner();
-        // Disable Google Analytics
-        window['ga-disable-G-CR78ZZ0YES'] = true;
-      });
-
-      // If previously declined, disable GA on this load too
-      if (consent === 'declined') {
-        window['ga-disable-G-CR78ZZ0YES'] = true;
-      }
     })();
   </script>
 </body>
